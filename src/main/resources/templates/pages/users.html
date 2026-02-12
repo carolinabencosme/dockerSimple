@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/quaters.css}">
+  <link rel="stylesheet" th:href="@{/css/tailwind.css}">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+  <script th:src="@{/js/toggleSideMenu.js}"></script>
+  <script th:src="@{/js/toggleAvatarMenu.js}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <title>Wornux - Users</title>
+  <meta name="description"
+    content="Wornux is an efficient and easy-to-use URL shortening service that streamlines your online experience.">
+</head>
+
+<body>
+  <nav th:replace="~{components/navbar.html :: navbar}"></nav>
+  <header th:replace="~{components/header.html :: header}"></header>
+  <main>
+    <div class="hidden lg:block">
+      <span class="absolute box-base shadow-box box-animation-2 top-[5%] right-[70%]"></span>
+      <span class="absolute box-base shadow-box box-animation-2 top-[5%] right-[20%]"></span>
+      <span class="absolute box-base shadow-box box-animation-2 bottom-[15%] right-[19%] "></span>
+      <span class="absolute box-base shadow-box box-animation-1 bottom-[9%] left-[14%]"></span>
+    </div>
+
+    <!-- desktop table -->
+    <section class="hidden ml-28 m-12 lg:flex">
+      <table class="w-[70%] text-white table-auto">
+        <thead class="bg-btn-gray">
+          <tr>
+            <th class="py-3 font-normal text-center ">Username</th>
+            <th class="py-3 font-normal text-center ">Email</th>
+            <th class="py-3 font-normal text-center ">Role</th>
+            <th class="py-3 font-normal text-center rounded-tr-lg">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="user : ${users}" class="bg-table-gray backdrop-blur-sm border-y-8 border-y-transparent">
+            <td class="py-2 text-center border-btn-gray-border" th:text="${user.username}"></td>
+            <td class="py-2 text-center border-btn-gray-border" th:text="${user.email}"></td>
+
+            <td class="flex items-center justify-center px-4 py-2 gap-x-3 border-btn-gray-border"
+              th:unless="${user.role.name() == 'ADMIN'}">
+              <p class="text-center text-green-600 min-w-14">Normal</p>
+              <a th:href="'users/toggleUserRole/' + ${user.username}">
+                <div
+                  class="flex items-center justify-center hover:scale-125 transition rounded-full size-9 bg-green-600/30">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-user">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                  </svg>
+                </div>
+              </a>
+            </td>
+            <td class="flex items-center justify-center py-2 text-center gap-x-3 border-btn-gray-border"
+              th:if="${user.role.name() == 'ADMIN'}">
+              <p class="text-center text-btn-blue min-w-14">Admin</p>
+              <a th:href="'users/toggleUserRole/' + ${user.username}">
+                <div
+                  class="flex items-center justify-center rounded-full hover:scale-125 transition size-9 bg-blue-600/30">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-user-cog">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h2.5" />
+                    <path d="M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                    <path d="M19.001 15.5v1.5" />
+                    <path d="M19.001 21v1.5" />
+                    <path d="M22.032 17.25l-1.299 .75" />
+                    <path d="M17.27 20l-1.3 .75" />
+                    <path d="M15.97 17.25l1.3 .75" />
+                    <path d="M20.733 20l1.3 .75" />
+                  </svg>
+                </div>
+              </a>
+            </td>
+
+            <td class="px-4 py-2 border-btn-gray-border" th:if="${user.isDeleted}">
+              <div class="flex justify-center items-center gap-x-3">
+                <p class="text-center text-yellow-600 min-w-14">Inactive</p>
+                <a th:href="'users/toggleUserStatus/' + ${user.username}">
+                  <div
+                    class="flex items-center justify-center hover:scale-125 transition rounded-full size-9 bg-yellow-600/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-link-off">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M9 15l3 -3m2 -2l1 -1" />
+                      <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
+                      <path d="M3 3l18 18" />
+                      <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
+                    </svg>
+                  </div>
+                </a>
+              </div>
+            </td>
+            <td class="py-2 text-center border-btn-gray-border" th:unless="${user.isDeleted}">
+              <div class="flex justify-center items-center gap-x-3">
+                <p class="text-center text-green-600 min-w-14">Active</p>
+                <a th:href="'users/toggleUserStatus/' + ${user.username}">
+                  <div
+                    class="flex items-center justify-center rounded-full hover:scale-125 transition size-9 bg-green-600/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-link">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M9 15l6 -6" />
+                      <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
+                      <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
+                    </svg>
+                  </div>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div th:replace="~{components/userDropdown.html :: menu}"></div>
+  </main>
+</body>
+
+</html>

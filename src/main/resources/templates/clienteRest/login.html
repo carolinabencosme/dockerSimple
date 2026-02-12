@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login REST - URL Shortener</title>
+</head>
+<body>
+<h2>Login al API</h2>
+<form id="login-form">
+  <input type="text" id="username" placeholder="Usuario" required />
+  <input type="password" id="password" placeholder="Contraseña" required />
+  <button type="submit">Iniciar sesión</button>
+</form>
+
+<p id="token-display"></p>
+
+<script>
+  const form = document.getElementById('login-form');
+  const tokenDisplay = document.getElementById('token-display');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    const response = await fetch('http://localhost:8888/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const token = data.token;
+
+      localStorage.setItem('jwt', token);
+      tokenDisplay.innerText = '✅ Token guardado: ' + token;
+    } else {
+      tokenDisplay.innerText = '❌ Error al iniciar sesión';
+    }
+  });
+</script>
+</body>
+</html>

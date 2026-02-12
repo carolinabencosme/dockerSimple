@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package org.wornux.urlshortener.api.grpc.v1;
+
+option java_multiple_files = true;
+option java_package = "org.wornux.urlshortener.api.grpc.v1";
+option java_outer_classname = "UrlShortenerProto";
+
+// Servicio para gestionar el acortamiento de URL y la recuperación de datos
+service UrlShortenerService {
+  rpc ListUserUrls(ListUserUrlsRequest) returns (ListUserUrlsResponse);
+  rpc CreateUrl(CreateUrlRequest) returns (CreateUrlResponse);
+}
+
+// Solicitud para listar URLs de un usuario
+message ListUserUrlsRequest {
+  string user_id = 1;
+}
+
+// Solicitud para crear una URL acortada
+message CreateUrlRequest {
+  string user_id = 1;
+  string original_url = 2;
+}
+
+// Respuesta con la lista de URLs
+message ListUserUrlsResponse {
+  repeated UrlData urls = 1;
+}
+
+// Respuesta con una URL creada
+message CreateUrlResponse {
+  UrlData url = 1;
+}
+
+// Estructura que refleja tu JSON:
+message UrlData {
+  string original_url = 1;
+  string shortened_url = 2;
+  string created_by    = 3;
+  string created_at    = 4;
+  repeated Analytics analytics = 5;
+}
+
+// Detalle de analytics para cada acceso
+message Analytics {
+  string access_date = 1;
+  string browser     = 2;
+  string ip_adress   = 3;
+  string os          = 4;
+}

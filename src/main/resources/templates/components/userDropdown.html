@@ -1,0 +1,16 @@
+<!-- Dropdown menu -->
+<div th:fragment="menu" th:if="${user}" id="userDropdown"
+  class="absolute right-[2%] top-[11%] mt-2 z-10 hidden bg-btn-gray divide-y divide-btn-gray-border rounded-lg shadow w-44">
+  <div class="px-4 py-3 text-sm text-white">
+    <p id="username" th:text="${user.username}"></p>
+    <p id="userEmail" class="font-medium truncate" th:text="${user.email}"></p>
+  </div>
+  <ul class="py-2 text-sm text-white" aria-labelledby="avatarButton">
+    <li>
+      <a href="/shortened/dashboard" class="block px-4 py-2 hover:bg-btn-blue">Dashboard</a>
+    </li>
+    <li>
+      <a href="/auth/logout" class="block px-4 py-2 hover:bg-btn-blue">Log Out</a>
+    </li>
+  </ul>
+</div>

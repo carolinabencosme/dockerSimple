@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/quaters.css}">
+  <link rel="stylesheet" th:href="@{/css/tailwind.css}">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+  <script th:src="@{/js/toggleSideMenu.js}"></script>
+  <script th:src="@{/js/toggleAvatarMenu.js}"></script>
+  <script th:src="@{/js/copyUrlToClipboard.js}"></script>
+  <title>Wornux - Urls</title>
+  <meta name="description"
+    content="Wornux is an efficient and easy-to-use URL shortening service that streamlines your online experience.">
+</head>
+
+<body>
+  <nav th:replace="~{components/navbar.html :: navbar}"></nav>
+  <header th:replace="~{components/header.html :: header}"></header>
+  <main>
+    <div class="hidden lg:block">
+      <span class="absolute box-base shadow-box box-animation-1 top-[5%] right-[20%]"></span>
+      <span class="absolute box-base shadow-box box-animation-2 bottom-[15%] right-[19%] "></span>
+      <span class="absolute box-base shadow-box box-animation-1 bottom-[9%] left-[14%]"></span>
+    </div>
+
+    <section class="flex-col-reverse w-screen mt-10 lg:mx-5 gap-y-5 lg:ml-32">
+      <article th:each="url, iterStat : ${urls}"
+        class="flex items-center justify-center w-[90%] lg:w-[70%] p-3 py-8 rounded-lg shadow-xl bg-btn-gray">
+        <div class="items-center justify-center hidden lg:flex lg:basis-2/12">
+          <img id="link-preview-image" th:class="'a'+${url.id}" src="" alt="Link preview">
+        </div>
+        <div class="flex flex-col items-start justify-center ml-4 basis-4/5 lg:basis-3/4 gap-y-1">
+          <div class="flex items-center justify-center gap-x-5">
+            <div class="flex flex-col">
+              <h2 class="text-2xl font-medium text-white" th:text="'Link #' + ${iterStat.count}"></h2>
+              <a class="font-normal hover:underline text-orange-300 text-btn-blue" target="_blank"
+                th:href="${'/s/' + url.shortenedUrl}" th:text="${url.shortenedUrl}"></a>
+            </div>
+            <a th:href="'/shortened/' + ${url.id} + '/qr'" class="btn">
+              <svg xmlns="http://www.w3.org/2000/svg" class="m-auto size-8" viewBox="0 0 300 300"
+                shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+                <path
+                  d="M0 125V0h125v125H0Zm100.873-24.127V24.127H24.127v76.746h76.746ZM175 125V0h125v125H175Zm100.873-24.127V24.127h-76.746v76.746h76.746Z"
+                  fill="#666" />
+                <rect width="100" height="100" rx="0" ry="0" transform="matrix(.28833 0 0 .29003 223.083 47.998)"
+                  fill="#666" />
+                <path d="M0 300V175h125v125H0Zm100.873-24.127v-76.746H24.127v76.746h76.746Z" fill="#666" />
+                <rect width="100" height="100" rx="0" ry="0" transform="matrix(.28833 0 0 .29003 48.083 222.998)"
+                  fill="#666" />
+                <rect width="100" height="100" rx="0" ry="0" transform="matrix(.76745 0 0 .76745 200 335.085)"
+                  fill="#fff" />
+                <rect width="100" height="100" rx="0" ry="0" transform="matrix(.28833 0 0 .29003 48.083 47.998)"
+                  fill="#666" />
+                <rect width="25" height="30" rx="0" ry="0" transform="translate(0 150)" fill="#666" />
+                <rect width="25" height="30" rx="0" ry="0" transform="translate(75 150)" fill="#666" />
+                <rect width="25" height="30" rx="0" ry="0" transform="translate(25 120)" fill="#666" />
+                <rect width="25" height="30" rx="0" ry="0" transform="translate(275 120)" fill="#666" />
+                <rect width="25" height="30" rx="0" ry="0" transform="translate(225 120)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="translate(200 150)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="translate(150 150)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="matrix(1 0 0 1.41206 150 168.82)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="translate(175 250)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="matrix(1.59923 0 0 1 150 250)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="translate(175 275)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="translate(250 252.002)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="translate(275 197.998)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="translate(200 226)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="translate(200 226)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="matrix(1 0 0 1.2001 175 196.998)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="matrix(1.5 0 0 1.2001 150 196.998)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="translate(275 275)" fill="#666" />
+                <rect width="25" height="25" rx="0" ry="0" transform="translate(225 275)" fill="#666" />
+                <rect width="30" height="25" rx="0" ry="0" transform="matrix(1.337 0 0 1 114.945 175)" fill="#666" />
+                <rect width="30" height="25" rx="0" ry="0" transform="matrix(4.59826 0 0 1 162.052 175)" fill="#666" />
+                <rect width="30" height="25" rx="0" ry="0" transform="translate(120 100)" fill="#666" />
+                <rect width="30" height="25" rx="0" ry="0" transform="translate(120 25)" fill="#666" />
+                <rect width="30" height="25" rx="0" ry="0" transform="translate(150)" fill="#666" />
+                <rect width="30" height="25" rx="0" ry="0" transform="translate(150 75)" fill="#666" />
+                <rect width="30" height="25" rx="0" ry="0" transform="translate(120 226)" fill="#666" />
+                <rect width="30" height="25" rx="0" ry="0" transform="translate(120 275)" fill="#666" />
+              </svg>
+            </a>
+          </div>
+          <a class="text-white font-extralight hover:underline  lg:max-w-[650px] md:max-w-[530px] max-w-[250px] overflow-hidden link"
+            th:data-id="${url.id}" th:data-url="${url.originalUrl}" th:text="${url.originalUrl}"></a>
+          <div class="flex items-center justify-center mt-2 gap-x-5">
+            <div class="flex items-center justify-center gap-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                class="inline text-white icon icon-tabler icons-tabler-outline icon-tabler-click">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 12l3 0" />
+                <path d="M12 3l0 3" />
+                <path d="M7.8 7.8l-2.2 -2.2" />
+                <path d="M16.2 7.8l2.2 -2.2" />
+                <path d="M7.8 16.2l-2.2 2.2" />
+                <path d="M12 12l9 3l-4 2l-2 4l-3 -9" />
+              </svg>
+              <p class="inline text-white font-extraligh" th:text="${url.clickCount}"></p>
+            </div>
+            <div class="items-center hidden md:flex justity-center gap-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                class="text-white icon icon-tabler icons-tabler-outline icon-tabler-calendar-event">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                <path d="M16 3l0 4" />
+                <path d="M8 3l0 4" />
+                <path d="M4 11l16 0" />
+                <path d="M8 15h2v2h-2z" />
+              </svg>
+              <p class="text-white font-extralight" th:text="${#dates.format(url.createdAt, 'dd-MM-yyyy HH:mm')}"></p>
+            </div>
+            <div class="flex items-center justify-center gap-x-1 " th:unless="${url.isOffensive}">
+              <p class="text-center text-green-600 min-w-14">Active</p>
+              <div class="flex items-center justify-center rounded-full size-9 bg-green-600/30">
+                <a th:href="'/shortened/toggleOffensiveUrl/' + ${url.shortenedUrl}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                    class="text-white icon icon-tabler icons-tabler-outline icon-tabler-link">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M9 15l6 -6" />
+                    <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
+                    <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="flex items-center justify-center gap-x-2" th:if="${url.isOffensive}">
+              <p class="text-center text-yellow-600 min-w-14">Inactive</p>
+              <div class="flex items-center justify-center rounded-full size-9 bg-yellow-600/30">
+                <a th:href="'/shortened/toggleOffensiveUrl/' + ${url.shortenedUrl}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                    class="text-white icon icon-tabler icons-tabler-outline icon-tabler-link-off">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M9 15l3 -3m2 -2l1 -1" />
+                    <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
+                    <path d="M3 3l18 18" />
+                    <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center justify-center lg:flex-row gap-y-3 gap-x-4 basis-1/12 lg:basis-2/12 ">
+          <button class="flex items-center justify-center rounded-full size-9" onclick="copyToClipboard(this)"
+            th:attr="data-url=${url.shortenedUrl}" title="Copy to clipboard">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-copy text-white hover:text-orange-300 hover:scale-110">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" />
+              <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+            </svg>
+          </button>
+        </div>
+      </article>
+    </section>
+    <div th:replace="~{components/userDropdown.html :: menu}"></div>
+  </main>
+</body>
+
+<footer th:replace="~{components/footer.html :: footer}"></footer>
+<script th:src="@{/js/preview.js}"></script>
+
+</html>

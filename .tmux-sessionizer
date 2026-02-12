@@ -1,0 +1,19 @@
+# Crear una nueva ventana para el editor
+tmux rename-window "editor"
+tmux send-keys -t editor "vim ." C-m
+
+# Crear una nueva ventana para la terminal
+tmux new-window -n terminal
+tmux send-keys -t terminal "cd $(pwd)" C-m
+
+# Crear una nueva ventana para ejecutar un servidor
+tmux new-window -n server
+tmux send-keys -t server "gd r" C-m
+
+# Dividir el panel actual en dos y ejecutar comandos
+tmux split-window -h
+tmux send-keys "btop" C-m
+
+# Volver a la ventana principal
+tmux select-window -t editor
+
