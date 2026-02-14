@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        PORT: ${APP_PORT:-7000}
     image: wornux/urlshortener:latest
     container_name: urlshortener_app
     environment:

@@ -12,7 +12,8 @@ RUN chmod +x gradlew && ./gradlew shadowJar --no-daemon
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-ENV PORT=7000
+ARG PORT=7000
+ENV PORT=${PORT}
 ENV LOG_DIR=/app/logs
 
 RUN mkdir -p "$LOG_DIR"
@@ -20,6 +21,6 @@ VOLUME ["/app/logs"]
 
 COPY --from=builder /app/build/libs/app-1.0.0-all.jar /app/app.jar
 
-EXPOSE 7000
+EXPOSE ${PORT}
 
 CMD ["sh", "-c", "java -jar /app/app.jar 2>&1 | tee -a ${LOG_DIR}/application.log"]
