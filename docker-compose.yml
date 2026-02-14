@@ -3,16 +3,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        PORT: ${APP_PORT:-7003}
     image: wornux/urlshortener:latest
     container_name: urlshortener_app
     environment:
-      PORT: ${APP_PORT:-7003}
+      PORT: ${APP_PORT:-7000}
       PORT_GRPC: ${APP_PORT_GRPC:-9090}
       MONGODB_URL: ${MONGODB_URL}
     ports:
-      - "${APP_PORT:-7003}:${APP_PORT:-7003}"
+      - "${APP_PORT:-7000}:${APP_PORT:-7000}"
       - "${APP_PORT_GRPC:-9090}:${APP_PORT_GRPC:-9090}"
     volumes:
       - app-logs:/app/logs
