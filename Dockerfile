@@ -16,8 +16,7 @@ RUN ./gradlew clean build -x test -x spotlessJavaCheck -x spotlessCheck --no-dae
 FROM --platform=linux/amd64 eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-ARG PORT=7003
-ENV PORT=${PORT}
+ENV PORT=7000
 ENV LOG_DIR=/app/logs
 
 RUN mkdir -p "$LOG_DIR"
@@ -26,6 +25,6 @@ VOLUME ["/app/logs"]
 # Evita fallar si cambia versión/nombre del jar
 COPY --from=builder /app/build/libs/*-all.jar /app/app.jar
 
-EXPOSE 7003
+EXPOSE 7000
 
-CMD ["sh", "-c", "java -jar /app/app.jar 2>&1 | tee -a ${LOG_DIR}/application.log"]
+CMD ["sh", "-c", "java -Dserver.port=${PORT} -jar /app/app.jar 2>&1 | tee -a ${LOG_DIR}/application.log"]
