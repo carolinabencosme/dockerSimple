@@ -1,4 +1,21 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: wornux/urlshortener:latest
+    container_name: urlshortener_app
+    environment:
+      PORT: ${APP_PORT:-7000}
+      PORT_GRPC: ${APP_PORT_GRPC:-9090}
+    ports:
+      - "${APP_PORT:-7000}:${APP_PORT:-7000}"
+      - "${APP_PORT_GRPC:-9090}:${APP_PORT_GRPC:-9090}"
+    volumes:
+      - app-logs:/app/logs
+    depends_on:
+      - mongo
+
   mongo:
     image: mongo:latest
     container_name: mongo_dev
@@ -12,3 +29,4 @@ services:
 
 volumes:
   mongo-data:
+  app-logs:
