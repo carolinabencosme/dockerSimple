@@ -27,4 +27,4 @@ COPY --from=builder /app/build/libs/*-all.jar /app/app.jar
 
 EXPOSE 7000
 
-CMD ["sh", "-c", "java -Dserver.port=${PORT} -jar /app/app.jar 2>&1 | tee -a ${LOG_DIR}/application.log"]
+CMD ["sh", "-c", "mkfifo /tmp/java.log.pipe; tee -a ${LOG_DIR}/application.log < /tmp/java.log.pipe & exec java -Dserver.port=${PORT} -jar /app/app.jar > /tmp/java.log.pipe 2>&1"]
