@@ -9,7 +9,7 @@ import urlshortener_pb2_grpc
 # Configuración
 PORT_GRPC = int(os.getenv("PORT_GRPC", 9090))
 SERVER_ADDRESS = f"localhost:{PORT_GRPC}"
-PORT_REST = int(os.getenv("PORT_REST", 7000))
+PORT_REST = int(os.getenv("PORT_REST", 7003))
 REST_LOGIN_URL = f"http://localhost:{PORT_REST}/auth/login"
 
 # Colores

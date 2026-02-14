@@ -5,7 +5,7 @@ import urllib.parse
 import jwt
 
 # Configuración
-PORT = int(os.getenv("PORT_REST", 7000))
+PORT = int(os.getenv("PORT_REST", 7003))
 BASE_URL = f"http://localhost:{PORT}"
 LOGIN_URL = f"{BASE_URL}/auth/login"
 FULL_URLS_ENDPOINT = f"{BASE_URL}/urls"
