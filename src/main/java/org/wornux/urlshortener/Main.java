@@ -26,7 +26,7 @@ public class Main {
     // Starts a new thread to initialize and run the REST API router.
     new Thread(org.wornux.urlshortener.api.rest.Router::start).start();
 
-    int PORT = EnvReader.getInt("PORT", 7_0_0_0);
+    int PORT = EnvReader.getInt("PORT", 7_0_0_2);
     Javalin app = Javalin.create(config -> AppConfig.configureApp(config)).start(PORT);
     AppConfig.ConfigureExceptionHandlers(app);
 
